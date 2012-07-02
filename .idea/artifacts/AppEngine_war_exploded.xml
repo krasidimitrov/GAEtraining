@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="AppEngine:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/AppEngine_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="AppEngine/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="AppEngine" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="AppEngine API" />
+          <element id="file-copy" path="$USER_HOME$/development/gwt-2.4.0/gwt-servlet.jar" />
+        </element>
+      </element>
+      <element id="gwt-compiler-output" facet="AppEngine/gwt/GWT" />
+    </root>
+  </artifact>
+</component>
