@@ -2,6 +2,9 @@ package com.clouway.appengineexample.server;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
@@ -20,5 +23,16 @@ public class UserRepositoryImpl implements UserRepository {
   @Override
   public void add(Entity entity) {
     datastoreService.put(entity);
+  }
+
+  @Override
+  public Entity getUserByUsername(String username) {
+    Key key = KeyFactory.createKey("User", username);
+    try {
+      return datastoreService.get(key);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }

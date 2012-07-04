@@ -8,4 +8,6 @@ import com.google.appengine.api.datastore.Entity;
 public interface UserRepository {
 
   void add(Entity entity);
+  
+  Entity getUserByUsername(String username);
 }

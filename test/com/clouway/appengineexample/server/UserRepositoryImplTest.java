@@ -41,16 +41,22 @@ public class UserRepositoryImplTest {
   @Test
   public void addEntityToDataStore() throws EntityNotFoundException {
 
-    Entity entity = new Entity("User");
-    entity.setProperty("username", "kpackapgo");
+    Entity entity = new Entity("User", "kpackapgo");
     entity.setProperty("password", "abc123");
     entity.setProperty("email", "555@mail.bg");
     
     userRepository.add(entity);
     Key key = entity.getKey();
-//    Key key2 = KeyFactory.createKey("User",)
-//    datastoreService.get(key);
-    assertThat(entity, is(equalTo(datastoreService.get(key))));
   }
 
+  @Test
+  public void returnUserEntity(){
+    Entity entity = new Entity("User", "kpackapgo");
+    entity.setProperty("password", "abc123");
+    entity.setProperty("email", "555@mail.bg");
+
+    userRepository.add(entity);
+
+    assertThat(entity, is(equalTo(userRepository.getUserByUsername("kpackapgo"))));
+  }
 }
