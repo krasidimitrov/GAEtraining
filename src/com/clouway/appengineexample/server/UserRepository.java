@@ -10,4 +10,6 @@ public interface UserRepository {
   void add(Entity entity);
   
   Entity getUserByUsername(String username);
+
+  void addExpenses(String username, Expenses expenses);
 }

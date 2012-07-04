@@ -1,10 +1,6 @@
 package com.clouway.appengineexample.server;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.*;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import org.junit.After;
@@ -54,9 +50,33 @@ public class UserRepositoryImplTest {
     Entity entity = new Entity("User", "kpackapgo");
     entity.setProperty("password", "abc123");
     entity.setProperty("email", "555@mail.bg");
-
     userRepository.add(entity);
 
     assertThat(entity, is(equalTo(userRepository.getUserByUsername("kpackapgo"))));
+  }
+  
+  @Test
+  public void addExpensesToUser(){
+
+    Entity entity = new Entity("User", "kpackapgo");
+    entity.setProperty("password", "abc123");
+    entity.setProperty("email", "555@mail.bg");
+    String username = "kpackapgo";
+
+
+    Expenses expenses = new Expenses("gas money", 13.25);
+
+    userRepository.add(entity);
+    userRepository.addExpenses(username, expenses);
+
+    Query query = new Query("Expenses");
+    query.setAncestor(KeyFactory.createKey("User", "kpackapgo"));
+    query.setFilter(new Query.FilterPredicate("expensesName", Query.FilterOperator.EQUAL, "gas money"));
+
+    PreparedQuery preparedQuery = datastoreService.prepare(query);
+    Entity actualExpensesEntity = preparedQuery.asSingleEntity();
+
+    assertThat(expenses.getExpensesName(), is(equalTo(actualExpensesEntity.getProperty("expensesName"))));
+    assertThat(expenses.getExpensesValue(), is(equalTo(actualExpensesEntity.getProperty("expensesValue"))));
   }
 }

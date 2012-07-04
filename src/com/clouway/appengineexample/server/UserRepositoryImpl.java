@@ -35,4 +35,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
     return null;
   }
+
+  @Override
+  public void addExpenses(String username, Expenses expenses) {
+    Entity expensesEntity = new Entity("Expenses", KeyFactory.createKey("User", username));
+    expensesEntity.setProperty("expensesName", expenses.getExpensesName());
+    expensesEntity.setProperty("expensesValue", expenses.getExpensesValue());
+
+    datastoreService.put(expensesEntity);
+  }
 }
