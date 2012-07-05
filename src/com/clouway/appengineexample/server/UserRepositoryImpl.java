@@ -6,6 +6,8 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
+import java.util.List;
+
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
@@ -43,5 +45,27 @@ public class UserRepositoryImpl implements UserRepository {
     expensesEntity.setProperty("expensesValue", expenses.getExpensesValue());
 
     datastoreService.put(expensesEntity);
+  }
+
+  @Override
+  public List<Expenses> getAllExpenses(String username) {
+//    Key parentKey =  KeyFactory.createKey("User", username)
+//    Query query = new Query("Expenses");
+//    query.setAncestor(parentKey);
+//    query.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.GREATER_THAN, parentKey));
+//
+//    PreparedQuery preparedQuery = datastoreService.prepare(query);
+//
+//    List<Expenses> expensesList = new ArrayList<Expenses>();
+//
+//    ArrayList<Entity> entityList = (ArrayList<Entity>) preparedQuery.asList(FetchOptions.Builder.withDefaults());
+//
+//    for (Entity anEntityList : entityList){
+//      Expenses expenses = new Expenses()
+//      expensesList.add((Expenses))
+//    }
+//
+//
+      return null;
   }
 }
